@@ -1,28 +1,27 @@
-// Cursor
-const cursor = document.querySelector(".cursor");
-document.addEventListener("mousemove", e => {
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-slate-100');
+    } else {
+        nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-slate-100');
+    }
 });
 
-// Magnetic buttons
-document.querySelectorAll(".btn").forEach(btn=>{
-  btn.addEventListener("mousemove",(e)=>{
-    const rect=btn.getBoundingClientRect();
-    const x=e.clientX-rect.left-rect.width/2;
-    const y=e.clientY-rect.top-rect.height/2;
-    btn.style.transform=`translate(${x*0.2}px,${y*0.2}px)`;
-  });
-  btn.addEventListener("mouseleave",()=>{
-    btn.style.transform="translate(0,0)";
-  });
-});
+// Scroll Reveal Animation
+function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+    for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 100;
 
-// Particles
-particlesJS("particles-js",{
-  particles:{
-    number:{value:50},
-    move:{speed:1},
-    line_linked:{enable:true,color:"#38bdf8"}
-  }
-});
+        if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+        }
+    }
+}
+
+window.addEventListener("scroll", reveal);
+// Trigger once on load
+reveal();
